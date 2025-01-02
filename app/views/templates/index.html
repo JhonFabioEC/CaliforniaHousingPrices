@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Precios de Viviendas en California</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+
+<body>
+    <div id="loader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+    </div>
+
+    <div class="container-md mx-sm-4 mx-3 my-3">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10 col-12">
+                <form id="form_predict_price" action="#" method="post" novalidate="novalidate">
+                    <h1 class="fs-3 text-center mb-2">Calcular Precios de Viviendas en California</h1>
+
+                    <div class="row mb-2">
+                        <div class="col-12">
+                            <div id="map" style="width: 100%; height: 400px;"></div>
+                            <input type="number" name="longitude" id="longitude" class="form-control"
+                                placeholder="Longitud" readonly hidden required>
+                            <input type="number" name="latitude" id="latitude" class="form-control"
+                                placeholder="Latitud" readonly hidden required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="housing_median_age" class="col-md-4 col-12 col-form-label">Edad media de la
+                            vivienda</label>
+                        <div class="col-md-8 col-12">
+                            <input type="number" name="housing_median_age" id="housing_median_age" class="form-control"
+                                placeholder="Edad media de la vivienda" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="total_rooms" class="col-md-4 col-12 col-form-label">Habitaciones totales</label>
+                        <div class="col-md-8 col-12">
+                            <input type="number" name="total_rooms" id="total_rooms" class="form-control"
+                                placeholder="Habitaciones totales" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="total_bedrooms" class="col-md-4 col-12 col-form-label">Dormitorios totales</label>
+                        <div class="col-md-8 col-12">
+                            <input type="number" name="total_bedrooms" id="total_bedrooms" class="form-control"
+                                placeholder="Dormitorios totales" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="population" class="col-md-4 col-12 col-form-label">Población</label>
+                        <div class="col-md-8 col-12">
+                            <input type="number" name="population" id="population" class="form-control"
+                                placeholder="Población" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="households" class="col-md-4 col-12 col-form-label">Hogares</label>
+                        <div class="col-md-8 col-12">
+                            <input type="number" name="households" id="households" class="form-control"
+                                placeholder="Hogares" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="median_income" class="col-md-4 col-12 col-form-label">Ingreso medio</label>
+                        <div class="col-md-8 col-12">
+                            <input type="number" name="median_income" id="median_income" class="form-control"
+                                placeholder="Ingreso medio" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <label for="ocean_proximity" class="col-md-4 col-12 col-form-label">Proximidad al mar</label>
+                        <div class="col-md-8 col-12">
+                            <select class="form-select" aria-label="Default select example" name="ocean_proximity"
+                                id="ocean_proximity" required>
+                                <option value="" selected>Seleccione la proximidad al mar</option>
+                                <option value="<1H OCEAN">Menos de 1 hora del océano</option>
+                                <option value="INLAND">En el interior</option>
+                                <option value="NEAR OCEAN">Cerca del océano</option>
+                                <option value="NEAR BAY">Cerca de la bahía</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-sm-end justify-content-center">
+                        <div class="col-lg-4 col-md-5 col-sm-6 col-12 text-sm-end text-center">
+                            <button type="submit" id="btn_submit" class="btn btn-primary w-100">Calcular</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+
+    <script src="{{ url_for('static', filename='js/spinner.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>
