@@ -10,7 +10,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <h1>CaliforniaHousingPrices</h1>
+    <h2>CaliforniaHousingPrices</h2>
 </div>
 
 <!-- TABLE OF CONTENTS -->
@@ -42,7 +42,7 @@
 
 ![HeartBeats Screen Shot](.github/images/CaliforniaHousingPrices-screenshot.gif)
 
-Software para calcular el precio de las viviendas de california por medio de un modelo de IA.
+**CaliforniaHousingPrices** es una herramienta innovadora con una interfaz intuitiva, minimalista y fácil de usar, diseñada para estimar con precisión los precios de viviendas en el estado de California. Este software aprovecha un modelo avanzado de árbol de decisión, entrenado con datos reales del mercado inmobiliario, para ofrecer predicciones rápidas, confiables y precisas.
 
 <p align="right">(<a href="#readme-top">Principio de página</a>)</p>
 
@@ -73,39 +73,58 @@ Antes de comenzar, asegúrate de tener instalados los siguientes componentes y h
 
 ### Instalación 🔧
 
-1. Clona el repositorio
+1. Clona el repositorio:
+
     ```sh
     git clone https://github.com/JhonFabioEC/CaliforniaHousingPrices.git
     ```
 
-2. Crea un entorno virtual
+2. Accede al directorio del proyecto:
+
+    ```sh
+    cd CaliforniaHousingPrices
+    ```
+
+3. Crea un entorno virtual:
+
     ```sh
     py -3 -m venv env
     ```
 
-3. Activa el entorno virtual
+4. Activa el entorno virtual:
+
     ```sh
-    .\env\Scripts\activate
+    env/Scripts/activate
     ```
 
-4. Instala las dependencias del proyecto
+5. Instala las dependencias del proyecto:
+
     ```sh
-    pip install -r .\requirements.txt
+    pip install -r requirements.txt
     ```
 
 ### Ejecución ⏯️
 
-1. Activa el entorno virtual
+1. Accede al directorio del proyecto:
+
     ```sh
-    .\env\Scripts\activate
+    cd CaliforniaHousingPrices
     ```
 
-2. Ejecuta la aplicación
+2. Activa el entorno virtual:
+
+    ```sh
+    env/Scripts/activate
+    ```
+
+3. Ejecuta la aplicación:
+
     ```sh
     py run.py
     ```
 
-3. Abre la url en el navegador:
+4. Abre la url en el navegador:
+
     ```sh
     http://localhost:5000
     ```
@@ -115,21 +134,21 @@ Antes de comenzar, asegúrate de tener instalados los siguientes componentes y h
 <!-- AUTHOR -->
 ## Autor ✒️
 
-- **Jhon Favio España Cortes** - [JhonFabioEC](https://github.com/JhonFabioEC)
+**Jhon Favio España Cortes** - [JhonFabioEC](https://github.com/JhonFabioEC)
 
 <p align="right">(<a href="#readme-top">Principio de página</a>)</p>
 
 <!-- LICENSE -->
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia MIT - ve el archivo `LICENSE` para detalles.
+Este proyecto está bajo la Licencia MIT - ve el archivo `LICENSE` para mas detalles.
 
 <p align="right">(<a href="#readme-top">Principio de página</a>)</p>
 
 <!-- CONTACTS -->
 ## Contactos 💬
 
-Jhon Favio España Cortes - [@jhonydev404](https://www.linkedin.com/in/jhonydev404/) - jhonnycan212@gmail.com
+**Jhon Favio España Cortes** - [@jhonydev404](https://www.linkedin.com/in/jhonydev404/) - <jhonnycan212@gmail.com>
 
 <p align="right">(<a href="#readme-top">Principio de página</a>)</p>
 
